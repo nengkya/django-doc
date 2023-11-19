@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1>
+	{{ question.question_text }}
+    </h1>
+    <ul>
+	{% for choice in question.choice_set.all %}
+        <li>
+	    {{ choice.choice_text }}
+	</li>
+	{% endfor %}
+    </ul>
+
+    <form action="{% url 'polls:vote' question.id %}">
+	<fieldset>
+	    <legend>
+		{{ question }}
+	    </legend>
+	    {% if error_message %}
+		<div>
+		    <p>
+			<strong>
+			    {{ error_message }}
+			</strong>
+		    </p>
+		</div>
+	    {% endif %}
+	    {% for choice in question.choice_set.all %}
+		<div>
+		    <input type="radio" name=choice id=choice{{forloop.counter}} value={{choice.id}}>
+		</div>
+		<div>
+		    <label for="choice{{forloop.counter}}">
+			{{ choice }}
+		    </label>
+		</div>
+	    {% endfor %}
+	</fieldset>
+	<div>
+	    <input type="submit" value='vote HaGa'>
+	</div>
+    </form>
+
+
+
+</body>
+</html>
